@@ -18,7 +18,18 @@
 			Expect(document["_id"], Is.TypeOf<BsonObjectId>());
 		}
 
-		[Test]
+        [Test]
+        public void ToBsonDocument_IdAssigned_MapsToBsonObjectId2()
+        {
+            var role = new IdentityRole();
+            role.SetId(ObjectId.GenerateNewId().ToString());
+
+            var document = role.ToBsonDocument();
+
+            Expect(document["_id"], Is.TypeOf<BsonObjectId>());
+        }
+
+        [Test]
 		public void Create_WithoutRoleName_HasIdAssigned()
 		{
 			var role = new IdentityRole();
