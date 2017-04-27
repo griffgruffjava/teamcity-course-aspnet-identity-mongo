@@ -21,7 +21,20 @@
 			Expect(manager.GetAccessFailedCount(user.Id), Is.EqualTo(1));
 		}
 
-        
+        [Test]
+        public void AccessFailed_IncrementsAccessFailedCount2()
+        {
+            var manager = GetUserManager();
+            var user = new IdentityUser { UserName = "bobby" };
+            manager.Create(user);
+            manager.MaxFailedAccessAttemptsBeforeLockout = 3;
+
+            manager.AccessFailed(user.Id);
+
+            Expect(manager.GetAccessFailedCount(user.Id), Is.EqualTo(1));
+        }
+
+
 
         [Test]
 		public void IncrementAccessFailedCount_ReturnsNewCount()
